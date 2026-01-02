@@ -1,0 +1,20 @@
+.movie-card {
+  display: block;
+  width: 200px;
+  height: 352px;
+  padding: 10px;
+  background-color: #1a1a1a;
+}
+
+.movie-card > img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.movie-card:hover > p.title-movie {
+  color: #b12222;
+}
+
+p.title-movie {
+  color: #fff;
+}
