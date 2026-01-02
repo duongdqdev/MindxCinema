@@ -1,12 +1,13 @@
-import "../../env.js";
 import { Header } from "../layout/header/Header.js";
+import { Footer } from "../layout/footer/Footer.js";
+import "../../env.js";
 
 const movieTrendingEl = document.querySelector("#trending-movies");
 
 const API_KEY = window.ENV.API_KEY;
 
 Header();
-
+Footer();
 fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`)
   .then((res) => res.json())
   .then((data) => {

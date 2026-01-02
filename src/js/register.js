@@ -1,5 +1,7 @@
+import { Header } from "../layout/header/Header.js";
 const formEl = document.querySelector("#register-form");
 
+Header();
 formEl.addEventListener("submit", async (e) => {
   e.preventDefault();
 

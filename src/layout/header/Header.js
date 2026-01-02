@@ -19,11 +19,11 @@ const Header = () => {
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
   />
-    <link rel="stylesheet" href="./src/css/global.css" />
-  <link rel="stylesheet" href="./src/css/home.css" />
+    <link rel="stylesheet" href="/src/css/global.css" />
+  
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+      <div class="container">
+        <a class="navbar-brand" href="/"><img class="d-inline-block align-middle" src="/src/assets/Netflix_2015_logo.png" height="40" width="150" alt="branch"/></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -39,33 +39,36 @@ const Header = () => {
           <div class="d-flex align-items-center justify-content-between w-100">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#">Phim mới</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="#">Phim lẻ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="#">Phim bộ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Phim chiếu rạp</a>
               </li>
             </ul>
             <div class="d-flex align-items-center">
-              <form class="d-flex" role="search">
+              <form class="d-flex " role="search">
                 <input
                   class="form-control me-2"
                   type="search"
-                  placeholder="Search"
+                  placeholder="Tìm kiếm phim..."
                   aria-label="Search"
                 />
-                <button class="btn btn-outline-success" type="submit">
-                  Search
+                <button class="flex-shrink-0 btn btn-outline-success" type="submit">
+                  Tìm kiếm
                 </button>
               </form>
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a href="" class="nav-link"
+                  <a href="/src/pages/login.html" class="nav-link"
                     ><i class="bi bi-person-circle fs-4"></i
                   ></a>
                 </li>

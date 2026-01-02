@@ -1,6 +1,8 @@
+import { Header } from "../layout/header/Header.js";
+
 const formEl = document.querySelector("#login-form");
 const btnLoginWithGG = document.querySelector("#login-with-google");
-
+Header();
 formEl.addEventListener("submit", async (e) => {
   try {
     e.preventDefault();
