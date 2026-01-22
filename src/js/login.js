@@ -1,4 +1,7 @@
+// import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 import { Header } from "../layout/header/Header.js";
+// import { auth } from "./config.js";
+import { Login, LoginWithGoogle } from "./services.js";
 
 const formEl = document.querySelector("#login-form");
 const btnLoginWithGG = document.querySelector("#login-with-google");
@@ -17,8 +20,9 @@ formEl.addEventListener("submit", async (e) => {
     };
 
     if (validate()) {
-      const login = await auth.signInWithEmailAndPassword(email, pass);
+      const login = await Login(email, pass);
       alert("Chào mừng " + login.user.email);
+      window.location.href = "/";
     }
   } catch (err) {
     console.error("Error ==>", err);
@@ -27,8 +31,8 @@ formEl.addEventListener("submit", async (e) => {
 
 btnLoginWithGG.addEventListener("click", async () => {
   try {
-    const result = await auth.signInWithPopup(provider);
-    alert("Đăng nhập thành công: " + result.user.displayName);
+    const result = await LoginWithGoogle();
+    console.log("DEBUG ==>", result);
   } catch (err) {
     console.log("Error ==>", err);
   }

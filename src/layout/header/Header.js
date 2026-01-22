@@ -1,6 +1,22 @@
+import { AuthStateChanged, SignOut } from "../../js/services.js";
+
+const getCurrentUser = () => {
+  return new Promise((resolve) => {
+    const unsubscribe = AuthStateChanged((user) => {
+      unsubscribe();
+      resolve(user);
+    });
+  });
+};
+
+// Sử dụng
+const user = await getCurrentUser();
+console.log(user);
+
 const Header = () => {
   const header = document.createElement("div");
   header.id = "header";
+  header.className = "sticky-top";
   document.body.prepend(header);
 
   header.innerHTML = `
@@ -20,6 +36,7 @@ const Header = () => {
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
   />
     <link rel="stylesheet" href="/src/css/global.css" />
+    <link rel="stylesheet" href="/src/css/auth.css"/>
   
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
@@ -67,10 +84,13 @@ const Header = () => {
                 </button>
               </form>
               <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a href="/src/pages/login.html" class="nav-link"
-                    ><i class="bi bi-person-circle fs-4"></i
-                  ></a>
+                <li class="nav-item d-flex">
+                  ${
+                    user
+                      ? `<a href="/src/pages/setting.html" class="nav-link"><img class="rounded-circle border" width="40" height="40" src="${user.photoURL ?? "https://res.cloudinary.com/duw8obwvl/image/upload/v1769083438/avatar-trang-4_m7euox.jpg"}" alt="avatar"/></a>
+                          <button id="logout-btn" class="btn btn-danger">logout</button>`
+                      : '<a href="/src/pages/login.html" class="nav-link"><i class="bi bi-person-circle fs-4"></i></a>'
+                  }
                 </li>
               </ul>
             </div>
@@ -78,6 +98,15 @@ const Header = () => {
         </div>
       </div>
     </nav>`;
+
+  if (user) {
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", async () => {
+        await SignOut();
+      });
+    }
+  }
 };
 
 export { Header };

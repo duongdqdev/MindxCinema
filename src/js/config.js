@@ -1,3 +1,5 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 import "../../env.js";
 
 const firebaseConfig = {
@@ -9,10 +11,6 @@ const firebaseConfig = {
   appId: window.ENV.APP_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-
-const db = firebase.firestore();
-
-const provider = new firebase.auth.GoogleAuthProvider();
+export const auth = getAuth(app);

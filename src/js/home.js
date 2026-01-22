@@ -26,3 +26,33 @@ fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`)
           </a>`;
     });
   });
+
+// // create
+// db.collection("mymovie")
+//   .doc()
+//   .set({
+//     title: "Los Angeles",
+//     description: "CA",
+//     director: "USA",
+//     rating: 5.0,
+//     thumbnail: "https://example.com/losangeles.jpg",
+//     type: ["action", "drama"],
+//     actor: ["Actor A", "Actor B"],
+//   })
+//   .then(() => {
+//     console.log("Document successfully written!");
+//   })
+//   .catch((error) => {
+//     console.error("Error writing document: ", error);
+//   });
+// // read
+// db.collection("mymovie")
+//   .get()
+//   .then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       console.log(doc.id, " => ", doc.data());
+//     });
+//   })
+//   .catch((error) => {
+//     console.log("Error getting documents: ", error);
+//   });

@@ -1,4 +1,5 @@
 import { Header } from "../layout/header/Header.js";
+import { Register } from "./services.js";
 const formEl = document.querySelector("#register-form");
 
 Header();
@@ -24,7 +25,7 @@ formEl.addEventListener("submit", async (e) => {
     };
 
     if (validate()) {
-      await auth.createUserWithEmailAndPassword(email, pass);
+      await Register(email, pass);
       alert("Đăng ký thành công!!!");
       window.location.href = "../pages/login.html";
     }

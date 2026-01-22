@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const products = [
+        { id: 1, name: "iPhone 15", price: 25000000, category: "phone" },
+        {
+          id: 2,
+          name: "Samsung Galaxy S23",
+          price: 22000000,
+          category: "phone",
+        },
+        { id: 3, name: "MacBook Air M2", price: 28000000, category: "laptop" },
+        { id: 4, name: "Dell XPS 13", price: 26000000, category: "laptop" },
+        { id: 5, name: "Mũ bảo hiểm", price: 26000000, category: "laptop" },
+      ];
+
+      function removeVietnameseTones(str) {
+        return str
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D")
+          .toLowerCase();
+      }
+
+      function searchProducts(keyword) {
+        const normalizedKeyword = removeVietnameseTones(keyword);
+        return products.filter((product) => {
+          return removeVietnameseTones(product.name).includes(
+            normalizedKeyword,
+          );
+        });
+      }
+
+      console.log(searchProducts("mu"));
+    </script>
+  </body>
+</html>
