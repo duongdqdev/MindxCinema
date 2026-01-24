@@ -6,7 +6,15 @@ import {
   signOut,
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
-import { auth } from "./config.js";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  setDoc,
+  doc,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+import { auth, db } from "./config.js";
 
 const provider = new GoogleAuthProvider();
 
@@ -25,6 +33,17 @@ const LoginWithGoogle = async () => {
     const credential = GoogleAuthProvider.credentialFromResult(response);
     const token = credential.accessToken;
     const user = response.user;
+
+    await setDoc(
+      doc(db, "users", user.uid),
+      {
+        email,
+        role: "user",
+        createdAt: serverTimestamp(),
+      },
+      { merge: true },
+    );
+
     window.location.href = "/";
     return {
       data: { token, user },
@@ -42,6 +61,13 @@ const Register = async (email, password) => {
       password,
     );
 
+    const uid = response.user.uid;
+
+    await setDoc(doc(db, "users", uid), {
+      email,
+      role: "user",
+      createdAt: serverTimestamp(),
+    });
     return response;
   } catch (err) {
     console.error("Lỗi trong quá trình đăng ký:", err);
@@ -70,4 +96,23 @@ const AuthStateChanged = (callback) => {
   });
 };
 
-export { Login, Register, LoginWithGoogle, SignOut, AuthStateChanged };
+const getMovies = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "mymovie"));
+    const movies = querySnapshot.docs.map((x) => {
+      return { id: x.id, ...x.data() };
+    });
+    return movies;
+  } catch (err) {
+    console.error("Lỗi khi lấy dữ liệu phim:", err);
+  }
+};
+
+export {
+  Login,
+  Register,
+  LoginWithGoogle,
+  SignOut,
+  AuthStateChanged,
+  getMovies,
+};

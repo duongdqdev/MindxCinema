@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        id="movieForm"
+        class="gap-2 d-flex flex-column bg-white p-5 w-auto m-5 rounded"
+      >
+        <h2 class="text-lg-center text-black">Tạo phim</h2>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          placeholder="Title"
+        />
+        <textarea
+          class="form-control"
+          id="description"
+          placeholder="Description"
+        ></textarea>
+        <input class="form-control" type="text" id="type" placeholder="Type" />
+        <input
+          class="form-control"
+          type="text"
+          id="director"
+          placeholder="Director"
+        />
+        <input
+          class="form-control"
+          type="file"
+          id="thumbnail"
+          accept="image/*"
+        />
+        <div id="preview" class=""></div>
+        <button class="btn btn-success" id="saveBtn" type="button">Save</button>
+      </form>
+    </div>
+    <script type="module" src="../js/post.js"></script>
+  </body>
+</html>
