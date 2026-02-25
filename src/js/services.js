@@ -8,9 +8,10 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 import {
   collection,
-  addDoc,
   getDocs,
+  getDoc,
   setDoc,
+  addDoc,
   doc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
@@ -33,18 +34,19 @@ const LoginWithGoogle = async () => {
     const credential = GoogleAuthProvider.credentialFromResult(response);
     const token = credential.accessToken;
     const user = response.user;
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
 
-    await setDoc(
-      doc(db, "users", user.uid),
-      {
-        email,
+    if (!userSnap.exists()) {
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
         role: "user",
         createdAt: serverTimestamp(),
-      },
-      { merge: true },
-    );
+      });
+    }
 
     window.location.href = "/";
+
     return {
       data: { token, user },
     };
@@ -92,7 +94,21 @@ const AuthStateChanged = (callback) => {
       return;
     }
 
-    callback(user);
+    if (!user && path.includes("post.html")) {
+      window.location.replace("/login.html");
+      return;
+    }
+
+    if (callback) callback(user);
+  });
+};
+
+const getCurrentUser = async () => {
+  return new Promise((resolve) => {
+    const unsubscribe = AuthStateChanged((user) => {
+      unsubscribe();
+      resolve(user);
+    });
   });
 };
 
@@ -108,11 +124,33 @@ const getMovies = async () => {
   }
 };
 
+const SearchMovies = async (text) => {
+  try {
+    const querySnapshot = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${text}&language=vi-VN&page=1&include_adult=false&api_key=${window.ENV.API_KEY}`,
+    );
+
+    return querySnapshot.json();
+  } catch (err) {
+    console.error("Lỗi khi tìm kiếm phim:", err);
+  }
+};
+
+const postMovie = async (movieData) => {
+  try {
+    await addDoc(collection(db, "mymovie"), movieData);
+  } catch (err) {
+    console.error("Lỗi khi thêm phim:", err);
+  }
+};
+
 export {
   Login,
   Register,
   LoginWithGoogle,
   SignOut,
-  AuthStateChanged,
+  getCurrentUser,
   getMovies,
+  SearchMovies,
+  postMovie,
 };

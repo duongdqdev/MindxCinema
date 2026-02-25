@@ -39,7 +39,7 @@ const generateMyMovie = async () => {
     res.forEach((item) => {
       html += `<a href="#" class="movie-card rounded-2 text-center">
             <img
-              src="https://image.tmdb.org/t/p/w200/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg"
+              src="${item.thumbnail ?? "https://image.tmdb.org/t/p/w200/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg"}"
               alt="thumbnail"
             />
             <p class="title-movie multiline-ellipsis-2 mt-2">

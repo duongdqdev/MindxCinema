@@ -1,17 +1,7 @@
-import { AuthStateChanged, SignOut } from "../../js/services.js";
-
-const getCurrentUser = () => {
-  return new Promise((resolve) => {
-    const unsubscribe = AuthStateChanged((user) => {
-      unsubscribe();
-      resolve(user);
-    });
-  });
-};
+import { getCurrentUser, SignOut } from "../../js/services.js";
 
 // Sử dụng
-const user = await getCurrentUser();
-console.log(user);
+export const user = await getCurrentUser();
 
 const Header = () => {
   const header = document.createElement("div");
@@ -70,6 +60,9 @@ const Header = () => {
               <li class="nav-item">
                 <a class="nav-link" href="#">Phim chiếu rạp</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/src/pages/post.html">Post</a>
+              </li>
             </ul>
             <div class="d-flex align-items-center">
               <form class="d-flex " role="search">
@@ -78,6 +71,7 @@ const Header = () => {
                   type="search"
                   placeholder="Tìm kiếm phim..."
                   aria-label="Search"
+                  id="search-input"
                 />
                 <button class="flex-shrink-0 btn btn-outline-success" type="submit">
                   Tìm kiếm
@@ -107,6 +101,17 @@ const Header = () => {
       });
     }
   }
+
+  const searchForm = header.querySelector("form");
+  const searchInput = header.querySelector("#search-input");
+
+  searchForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (query) {
+      window.location.href = `/src/pages/search.html?q=${query}`;
+    }
+  });
 };
 
 export { Header };
