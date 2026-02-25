@@ -1,6 +1,7 @@
 import { Header } from "../layout/header/Header.js";
 import { Footer } from "../layout/footer/Footer.js";
 import "../../env.js";
+import { postMovie } from "./services.js";
 Header();
 Footer();
 
@@ -70,12 +71,28 @@ btnSave.addEventListener("click", async (e) => {
     const desc = document.getElementById("description").value;
     const director = document.getElementById("director").value;
 
-    console.log({
+    // console.log({
+    //   title: title,
+    //   desc: desc,
+    //   thumbnail: url,
+    //   director: director,
+    // });
+
+    const res = await postMovie({
       title: title,
-      desc: desc,
+      description: desc,
       thumbnail: url,
       director: director,
     });
+
+    if (res) {
+      alert("Đăng phim thành công!");
+      thumbnailInput.value = "";
+      removePreview();
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("director").value = "";
+    }
   } catch (err) {
     console.error("Lỗi trong quá trình đăng:", err);
   }
